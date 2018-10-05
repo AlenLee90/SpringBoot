@@ -2,7 +2,7 @@ package com.FittingRoomServer.FittingRoomServer.Domain;
 
 import java.util.ArrayList;
 
-public class ResponseObject {
+public class ResponseJSONObject {
     private int code;
     private String message;
     private ArrayList data;

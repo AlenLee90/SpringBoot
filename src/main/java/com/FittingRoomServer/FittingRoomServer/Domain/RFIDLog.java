@@ -8,6 +8,7 @@ public class RFIDLog {
     private String firstSeenTimestamp;
     private int peakRssi;
     private String readerName;
+    private String isHeartBeat;
     public int getStoreId() {
         return storeId;
     }
@@ -49,5 +50,11 @@ public class RFIDLog {
     }
     public void setReaderName(String readerName) {
         this.readerName = readerName;
+    }
+    public String getIsHeartBeat() {
+        return isHeartBeat;
+    }
+    public void setIsHeartBeat(String isHeartBeat) {
+        this.isHeartBeat = isHeartBeat;
     }
 }
