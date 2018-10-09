@@ -14,9 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Repository
@@ -26,18 +23,6 @@ public class RFIDLogDao {
     JdbcTemplate jdbcTemplate;
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-//    public List<RFIDLog> findAll(){
-//        RowMapper<RFIDLog> rowMapper = new BeanPropertyRowMapper<RFIDLog>(RFIDLog.class);
-//        String sql = "SELECT store_id,mac_address,antenna_port,epc,first_seen_timestamp,peak_rssi,IFNULL(reader_name,'') AS reader_name FROM RFID_LOG";
-//        List<RFIDLog> result = jdbcTemplate.query(sql, rowMapper);
-//        try{
-//            result = jdbcTemplate.query(sql, rowMapper);
-//        }catch (Exception e){
-//            e.getStackTrace();
-//        }
-//        return result;
-//    }
 
     public List<ClientResponseObject> getClientResponseData(String antennaPort,String storeId,String beginDate,String endDate){
         RowMapper<ClientResponseObject> rowMapper = new BeanPropertyRowMapper<ClientResponseObject>(ClientResponseObject.class);
@@ -70,7 +55,7 @@ public class RFIDLogDao {
         }
     }
 
-    public void update(RFIDObject data){
+    public void update(RFIDObject data,long errorTime){
 //        List<RFIDLog> updateBatchData = new ArrayList<RFIDLog>();
         List<RFIDLog> insertBatchData = new ArrayList<RFIDLog>();
         for(RFIDLog temp : data.getTag_reads()){
@@ -91,7 +76,7 @@ public class RFIDLogDao {
 //                    .atZone(ZoneId.of("Asia/Tokyo"))
 //                    .format(formatter);
 
-            Date date = new Date(Long.valueOf(temp.getFirstSeenTimestamp())/1000);
+            Date date = new Date((Long.valueOf(temp.getFirstSeenTimestamp()))/1000-errorTime*1000);
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String formattedDtm = df.format(date);
 

@@ -4,6 +4,7 @@ import com.FittingRoomServer.FittingRoomServer.Dao.RFIDLogDao;
 import com.FittingRoomServer.FittingRoomServer.Domain.ClientResponseObject;
 import com.FittingRoomServer.FittingRoomServer.Domain.RFIDLog;
 import com.FittingRoomServer.FittingRoomServer.Domain.ResponseJSONObject;
+import com.FittingRoomServer.FittingRoomServer.Utils.ConstansConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,18 +22,18 @@ public class ClientService {
 
     public ResponseJSONObject getProducts(String antennaPort, String storeId){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date dateOne = new Date(System.currentTimeMillis()+124 * 1000);
-        Date dateTwo = new Date(System.currentTimeMillis()-8 * 1000+124 * 1000);
+        Date dateOne = new Date(System.currentTimeMillis());
+        Date dateTwo = new Date(System.currentTimeMillis()-(ConstansConfig.SERVER_VERIFY_TIME+ConstansConfig.READER_UPDATE_INTERVAL));
         String endDate = df.format(dateOne);
         String beginDate = df.format(dateTwo);
         List<ClientResponseObject> temp= rfidLogDao.getClientResponseData(antennaPort,storeId,beginDate,endDate);
         ResponseJSONObject result = new ResponseJSONObject();
         if(temp.isEmpty()){
-            result.setCode(404);
+            result.setCode(ConstansConfig.DATA_NOT_FOUND);
             result.setMessage("NOT FOUND DATA");
             result.setData((ArrayList) temp);
         } else {
-            result.setCode(200);
+            result.setCode(ConstansConfig.EXECUTION_SUCCESS);
             result.setMessage("OK");
             result.setData((ArrayList) temp);
         }
