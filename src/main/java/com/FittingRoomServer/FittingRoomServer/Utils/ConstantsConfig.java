@@ -1,6 +1,6 @@
 package com.FittingRoomServer.FittingRoomServer.Utils;
 
-public class ConstansConfig {
+public class ConstantsConfig {
     //reader's update interval
     public final static long READER_UPDATE_INTERVAL = 3000;
 

@@ -5,16 +5,12 @@ import com.FittingRoomServer.FittingRoomServer.Dao.RoomAntennaMapDao;
 import com.FittingRoomServer.FittingRoomServer.Domain.RFIDLog;
 import com.FittingRoomServer.FittingRoomServer.Domain.RFIDObject;
 import com.FittingRoomServer.FittingRoomServer.Domain.ResponseJSONObject;
-import com.FittingRoomServer.FittingRoomServer.Utils.ConstansConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,7 +29,8 @@ public class HardwareService {
         List<RFIDLog> insertBatchData = new ArrayList<RFIDLog>();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = df.format(new Timestamp(System.currentTimeMillis()));
-        for(RFIDLog temp : data.getTag_reads()){
+        String className = this.getClass().getSimpleName();
+        for(RFIDLog temp : data.getTagReads()){
 //这一段的代码是因为speedway官网给的例子时间戳不一样
 //            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSX");
 //            Date date = new Date();
@@ -59,11 +56,11 @@ public class HardwareService {
 //            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 //            String formattedDtm = df.format(new Date(Long.valueOf(temp.getFirstSeenTimestamp())));
 
-            int storeId = roomAntennaMapDao.findByMacAddressAndAntennaPort(data.getMac_address(),temp.getAntennaPort()).getStoreId();
+            int storeId = roomAntennaMapDao.findByMacAddressAndAntennaPort(data.getMacAddress(),temp.getAntennaPort()).getStoreId();
 
             RFIDLog tempOne = new RFIDLog();
-            tempOne.setReaderName(data.getReader_name());
-            tempOne.setMacAddress(data.getMac_address());
+            tempOne.setReaderName(data.getReaderName());
+            tempOne.setMacAddress(data.getMacAddress());
             tempOne.setAntennaPort(temp.getAntennaPort());
             tempOne.setEpc(temp.getEpc());
             tempOne.setPeakRssi(temp.getPeakRssi());
@@ -71,8 +68,8 @@ public class HardwareService {
             tempOne.setFirstSeenTimestamp(temp.getFirstSeenTimestamp());
             tempOne.setCreatedAt(currentTime);
             tempOne.setUpdatedAt(currentTime);
-            tempOne.setCreatedBy(this.getClass().getSimpleName());
-            tempOne.setUpdatedBy(this.getClass().getSimpleName());
+            tempOne.setCreatedBy(className);
+            tempOne.setUpdatedBy(className);
 //            if(checkDataExists(String.valueOf(temp.getAntennaPort()),temp.getEpc())==true){
 //                updateBatchData.add(tempOne);
 //            }else {
@@ -83,10 +80,10 @@ public class HardwareService {
 
 //        try {
 //            rfidLogDao.update(insertBatchData);
-//            result.setCode(ConstansConfig.EXECUTION_SUCCESS);
+//            result.setCode(ConstantsConfig.EXECUTION_SUCCESS);
 //            result.setMessage("SUCCEED");
 //        }catch (Exception e){
-//            result.setCode(ConstansConfig.INVALID_REQUEST);
+//            result.setCode(ConstantsConfig.INVALID_REQUEST);
 //            result.setMessage("UPDATE OPERATATION FAILED");
 //        }
         rfidLogDao.update(insertBatchData);

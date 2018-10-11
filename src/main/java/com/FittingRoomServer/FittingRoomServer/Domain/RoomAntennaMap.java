@@ -9,6 +9,7 @@ public class RoomAntennaMap {
     private String createdBy;
     private String updatedAt;
     private String updatedBy;
+    private int deleteFlag;
     public int getStoreId() {
         return storeId;
     }
@@ -56,5 +57,11 @@ public class RoomAntennaMap {
     }
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+    public int getDeleteFlag(){
+        return deleteFlag;
+    }
+    public void setDeleteFlag(int deleteFlag){
+        this.deleteFlag = deleteFlag;
     }
 }
