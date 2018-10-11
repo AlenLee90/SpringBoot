@@ -1,5 +1,8 @@
 package com.FittingRoomServer.FittingRoomServer.Domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RFIDLog {
     private int storeId;
     private String macAddress;
@@ -8,7 +11,10 @@ public class RFIDLog {
     private String firstSeenTimestamp;
     private int peakRssi;
     private String readerName;
-    private String isHeartBeat;
+    private String createdAt;
+    private String createdBy;
+    private String updatedAt;
+    private String updatedBy;
     public int getStoreId() {
         return storeId;
     }
@@ -51,10 +57,28 @@ public class RFIDLog {
     public void setReaderName(String readerName) {
         this.readerName = readerName;
     }
-    public String getIsHeartBeat() {
-        return isHeartBeat;
+    public String getCreatedAt() {
+        return createdAt;
     }
-    public void setIsHeartBeat(String isHeartBeat) {
-        this.isHeartBeat = isHeartBeat;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+    public String getCreatedBy() {
+        return createdBy;
+    }
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 }

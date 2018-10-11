@@ -58,7 +58,7 @@ public class RFIDLogDao {
     public void update(List<RFIDLog> insertBatchData){
         if(!insertBatchData.isEmpty()){
             SqlParameterSource[] beanSources = SqlParameterSourceUtils.createBatch(insertBatchData.toArray());
-            String sql = "INSERT INTO rfid_log(store_id,mac_address,antenna_port,epc,first_seen_timestamp,peak_rssi,reader_name) VALUES (:storeId,:macAddress,:antennaPort,:epc,:firstSeenTimestamp,:peakRssi,:readerName);";
+            String sql = "INSERT INTO TT_RFID_LOG(store_id,mac_address,antenna_port,epc,first_seen_timestamp,peak_rssi,reader_name,created_at,created_by,updated_at,updated_by) VALUES (:storeId,:macAddress,:antennaPort,:epc,:firstSeenTimestamp,:peakRssi,:readerName,:createdAt,:createdBy,:updatedAt,:updatedBy);";
             namedParameterJdbcTemplate.batchUpdate(sql, beanSources);
         }
 //        if(!updateBatchData.isEmpty()){
