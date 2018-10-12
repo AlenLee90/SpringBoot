@@ -14,7 +14,6 @@ public class EpcConvertToPlu {
     }
 
     public static String epcConvertToPlu(String epc){
-        //14 24 20
 
         //取得每一个字符
         char[] c = epc.toCharArray();

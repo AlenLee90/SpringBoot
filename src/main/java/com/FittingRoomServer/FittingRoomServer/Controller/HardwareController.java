@@ -15,7 +15,7 @@ public class HardwareController {
     @Autowired
     HardwareService hardwareService = new HardwareService();
 
-    @RequestMapping(value="/v1/gu/japan/fittingroom/products",method = RequestMethod.POST)
+    @RequestMapping(value="/v1/gu/japan/fittingroom/rfidlog",method = RequestMethod.POST)
     public ResponseJSONObject updateProducts(@RequestBody RFIDObject data){
         return hardwareService.updateProducts(data);
     }

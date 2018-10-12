@@ -30,6 +30,9 @@ public class HardwareService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = df.format(new Timestamp(System.currentTimeMillis()));
         String className = this.getClass().getSimpleName();
+        if(className.length()>24){
+            className = className.substring(0,24);
+        }
         for(RFIDLog temp : data.getTagReads()){
 //这一段的代码是因为speedway官网给的例子时间戳不一样
 //            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSX");
